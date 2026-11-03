@@ -1,0 +1,9 @@
+{
+  "name": "Vector Schematic PDF Exporter",
+  "icon": "📄",
+  "group": "Pipeline",
+  "subGroup": "Translators & Formats",
+  "stage": "07c",
+  "description": "Vector Schematic PDF Exporter: compiles multi-page engineered schematics into vector PDF documents with ANSI/ISO architectural title blocks, revision history stamps, cover pages, and drawing notes.",
+  "app": "APK:Softapps/DATATYPE/DATATYPE.PDFSchematic/index.html"
+}

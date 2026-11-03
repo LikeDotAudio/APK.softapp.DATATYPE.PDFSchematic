@@ -1,0 +1,18 @@
+{
+  "name": "datatype-pdf-schematic",
+  "version": "1.0.0",
+  "description": "Vector Schematic PDF Exporter on APK.audio",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "keywords": [
+    "pdf",
+    "schematic",
+    "vector",
+    "export",
+    "titleblock"
+  ],
+  "author": "Anthony Kuzub",
+  "license": "MIT"
+}
