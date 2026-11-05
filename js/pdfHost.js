@@ -25,7 +25,7 @@ export function toBlock(state) {
   return out;
 }
 
-/** state is the title (mutated in place on load); onLoaded(state, meta) redraws. */
+/** state is the title (mutated in place on load); onLoaded(state, meta, block) redraws. */
 export function connectPdfHost(S, state, { onLoaded, notice } = {}) {
   return S.connectHost({
     editor: EDITOR,
@@ -34,7 +34,7 @@ export function connectPdfHost(S, state, { onLoaded, notice } = {}) {
     notice,
     onLoad: (block, meta) => {
       Object.assign(state, fromBlock(block));
-      if (onLoaded) onLoaded(state, meta);
+      if (onLoaded) onLoaded(state, meta, block);
     },
     onRequest: () => ({ block: toBlock(state), meta: { filename: 'titleblock', title: `${state.project} sheet ${state.sheet}` } }),
   });
