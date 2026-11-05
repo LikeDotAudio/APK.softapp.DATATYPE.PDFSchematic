@@ -4,25 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vector Schematic PDF Exporter — APK.audio</title>
+  <link rel="stylesheet" href="./vendor/apk-contracts/apk-tokens.css">
   <style>
     body { font-family: -apple-system, sans-serif; background: #0f1218; color: #e2e8f0; margin: 0; padding: 20px; }
-    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #283348; padding-bottom: 15px; margin-bottom: 20px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid #283348; padding-bottom: 15px; margin-bottom: 20px; }
+    header h2 { margin: 0; }
+    .pill { font-size: 11px; color: var(--apk-accent); border: 1px solid #283348; border-radius: 10px; padding: 2px 8px; }
     button { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
-    .sheet-wrapper { display: flex; justify-content: center; padding: 20px; background: #1a1e28; border-radius: 8px; }
+    button.primary { background: var(--apk-accent); color: var(--apk-on-accent, #111); border-color: var(--apk-accent); }
+    .fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .fields label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #94a3b8; }
+    .fields input { background: #181d28; color: #e2e8f0; border: 1px solid #2c364a; border-radius: 4px; padding: 6px 8px; }
+    .sheet-wrapper { display: flex; justify-content: center; padding: 20px; background: #1a1e28; border-radius: 8px; overflow: auto; }
+    @media print { header, .fields { display: none; } body { background: #fff; padding: 0; } .sheet-wrapper { background: none; padding: 0; } }
   </style>
 </head>
 <body>
   <header>
     <h2>📄 Vector Schematic PDF Exporter</h2>
-    <button onclick="window.print()">Export / Print Vector PDF</button>
+    <span class="pill" id="block-tag">TITLE BLOCK</span>
+    <div>
+      <button id="btn-print">Export / Print Vector PDF</button>
+      <button id="btn-save" class="primary">💾 Save &amp; Return</button>
+    </div>
   </header>
 
-  <p style="color:#94a3b8; font-size:14px;">Print-ready architectural title block and schematic border preview:</p>
+  <div class="fields">
+    <label>Project <input id="f-project"></label>
+    <label>Drawing <input id="f-drawing"></label>
+    <label>Rev <input id="f-rev"></label>
+    <label>Engineer <input id="f-engineer"></label>
+    <label>Sheet <input id="f-sheet"></label>
+    <label>Of <input id="f-totalSheets"></label>
+  </div>
+
   <div class="sheet-wrapper" id="sheet-preview"></div>
 
-  <script type="module">
-    import { generateTitleBlockSvg } from './js/pdfExport.js';
-    document.getElementById('sheet-preview').innerHTML = generateTitleBlockSvg('STUDIO COMPLEX A', '01', '04');
-  </script>
+  <!-- The one softapp client (ROAD-3485): contracts, bus, CAD bridge. Classic scripts, before the module. -->
+  <script src="./vendor/apk-contracts/apk-contracts.global.js"></script>
+  <script src="/FrontEnd/shared/apk-bus.js"></script>
+  <script src="./vendor/apk-softapp/apk-softapp.js"></script>
+  <script type="module" src="./js/pdfApp.js"></script>
 </body>
 </html>
