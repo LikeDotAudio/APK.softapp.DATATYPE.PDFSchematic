@@ -1,0 +1,6 @@
+# Principles — DATATYPE.PDFSchematic
+
+The principles this code keeps, each pointed at the code that keeps it.
+
+## IFC and this app
+IFC (ISO 16739-1:2024, IFC4X3_ADD2) is the model interchange of the site: every page that saves a **model** of a building or a system writes its native JSON and an `.ifc` twin through `APKSoftapp.saveModel`. The Vector Schematic PDF Exporter saves no such model, so it has **no `.ifc` twin, by design**. Save & Return sends a sheet's title block — six text fields, project, drawing, rev, engineer, sheet, totalSheets (`js/pdfHost.js` `toBlock`, block `schematic_titleblock`) — back into the CAD drawing (standalone, `titleblock.json` downloads), and Export prints the sheet as a vector PDF through the browser. A title block is document metadata and a PDF is a rendering; neither is an element, a port or a system. The model is the CAD drawing the title block sits in, and the CAD (with EDITORS.DrawingSheet for its sheets) writes that model's `.ifc`. The BIM repository's model-page census (`DATABASE.server.BIM SRC/tools/ifc/editors_census.py --pages`, `NATIVE_BY_DESIGN`) holds this app to that reason: if it ever saves a model, it must call `saveModel` and leave that list.
